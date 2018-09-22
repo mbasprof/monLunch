@@ -20,24 +20,60 @@
 
 <body>
   <header>
-      <h1>Menu <span class="heading__month"></span> <span class="heading__year"></span></h1>
-      <div class='student'>
-        <h2 class="student__school"></h2>
-        <h3><span class="student__name"></span>, <span class="student__schoolYear"></span></h3>
-      </div>
+    <h1>Menu <span class="heading__month"></span> <span class="heading__year"></span></h1>
+    <div class='student'>
+      <h2 class="student__school"></h2>
+      <h3><span class="student__name"></span>, <span class="student__schoolYear"></span></h3>
+    </div>
   </header>
   <main>
     <section id="calendar">
-      <div class="calendar__item">
-        <h4 class="calendar__day">1 Octobre</h4>
-        <ul class="calendar__menu">
-            <li class="calendar__mainDish">Spaghetti aux boulettes de viande</li>
-            <li class="calendar__sideOrder">Spaghetti aux boulettes de viande</li>
-            <li class="calendar__beverage">Spaghetti aux boulettes de viande</li>
-            <li class="calendar__dessert">Spaghetti aux boulettes de viande</li>
-            <li class="calendar__note">Spaghetti aux boulettes de viande</li>
-        </ul>
-      </div>
+      <div class="container">
+        <div class="row">
+          <div class="calendar__item col-12 col-sm-12 col-md-6 col-lg-3">
+            <h4 class="calendar__day">1 Octobre</h4>
+            <ul class="calendar__menu list-group">
+              <li class="calendar__empty list-group-item">Congé ou Pédago</li>
+              <!-- <li class="calendar__mainDish">Spaghetti aux boulettes de viande</li>
+            <li class="calendar__sideOrder">Crudités</li>
+            <li class="calendar__beverage">Eau</li>
+            <li class="calendar__dessert">Biscuit, fruit</li>
+            <li class="calendar__note">note</li> -->
+            </ul>
+          </div>
+          <div class="calendar__item col-12 col-sm-12 col-md-6 col-lg-3">
+            <h4 class="calendar__day">2 Octobre</h4>
+            <ul class="calendar__menu list-group">
+              <li class="calendar__mainDish list-group-item">Spaghetti aux boulettes de viande</li>
+              <li class="calendar__sideOrder list-group-item">Crudités</li>
+              <li class="calendar__beverage list-group-item">Eau</li>
+              <li class="calendar__dessert list-group-item">Biscuit, fruit</li>
+              <li class="calendar__note list-group-item"><span class="">Aucune note</span></li>
+            </ul>
+          </div>
+          <div class="calendar__item col-12 col-sm-12 col-md-6 col-lg-3">
+            <h4 class="calendar__day">3 Octobre</h4>
+            <ul class="calendar__menu list-group">
+              <li class="calendar__mainDish list-group-item">Spaghetti aux boulettes de viande</li>
+              <li class="calendar__sideOrder list-group-item">Crudités</li>
+              <li class="calendar__beverage list-group-item">Eau</li>
+              <li class="calendar__dessert list-group-item">Yogourt</li>
+              <li class="calendar__note list-group-item">Remplacer le yogourt par un autre dessert</li>
+            </ul>
+          </div>
+          <div class="calendar__item col-12 col-sm-12 col-md-6 col-lg-3">
+            <h4 class="calendar__day">4 Octobre</h4>
+            <ul class="calendar__menu list-group">
+              <li class="calendar__mainDish list-group-item">Spaghetti aux boulettes de viande</li>
+              <li class="calendar__sideOrder list-group-item">Crudités</li>
+              <li class="calendar__beverage list-group-item">Eau</li>
+              <li class="calendar__dessert list-group-item">Yogourt</li>
+              <li class="calendar__note list-group-item">Remplacer le yogourt par un autre dessert</li>
+            </ul>
+          </div>
+        </div> <!-- row -->
+      </div> <!-- container -->
+
 
     </section>
 
