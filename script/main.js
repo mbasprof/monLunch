@@ -118,7 +118,7 @@ $(document).ready(function() {
       pedagoDays = ['lundi 1 octobre'];
       dayOffs = ['lundi 8 octobre'];
       noOrders = [];
-      console.log(pedagoDays, dayOffs, noOrders);
+      // console.log(pedagoDays, dayOffs, noOrders);
 
 
 
@@ -127,6 +127,10 @@ $(document).ready(function() {
 
       // get all the days of the month
       calendarItems = getDaysInMonth(9, 2018);
+
+
+// console.log(calendarItems);
+
 
       // display all the days of the current month
       for (var i = 0; i < calendarItems.length; i++) {
@@ -141,24 +145,32 @@ $(document).ready(function() {
 
         formattedDate = formattedDate.toLocaleDateString("fr-FR", dateOptions);
         formattedDate = formattedDate.replace('2018', '');
-console.log(formattedDate);
+        // console.log(formattedDate);
 
-// var isdayOff = true;
-// console.log(pedagoDays[0]);
-// if (formattedDate === pedagoDays[0]) {
-//   isdayOff = true;
-//   console.log('journee pedago');
-//
-// };
+    // find the days with no orders
+    console.log(formattedDate);
+    // var pedago = pedagoDays[0];
+    // console.log(pedago);
+
+     // var isdayOff = false;
+
+    // if(pedago === pedago){
+    //   isdayOff = true;
+    //   console.log(isdayOff);
+    // }
+
+
 
         // display only weekdays
+        var pedago = formattedDate.search(pedagoDays[0]);
+        var dayOff = formattedDate.search(dayOffs[0]);
         var saturday = formattedDate.search('samedi');
         var sunday = formattedDate.search('dimanche');
-        var isWeekend = false;
+        var isDayOff = false;
 
-        if (saturday === -1 && sunday === -1) {
+        if (saturday === -1 && sunday === -1 && pedago === -1 && dayOff === -1) {
 
-          isWeekend = true;
+          isDayOff = true;
 
           // add a new calendar item
           newCalendarItem = $('<div class="calendar__item card m-2 col-12 col-sm-12 col-md-6 col-lg-3">').html(calendarItemHtml);
@@ -173,7 +185,7 @@ console.log(formattedDate);
           $("h4:contains('%date%')").text(formattedDate);
 
         } else {
-          isWeekend = false; // on n'affiche rien
+          isDayOff = false; // on n'affiche rien
         }
 
 
@@ -200,6 +212,8 @@ console.log(formattedDate);
             days.push(new Date(date));
             date.setDate(date.getDate() + 1);
           }
+
+          // TODO eliminer les weekends ici et les pedago, conges.
           return days;
         }
 
