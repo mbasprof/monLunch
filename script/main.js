@@ -134,6 +134,7 @@ $(document).ready(function() {
       // display the formatted date
       var formattedDate = calendarItems[i];
 
+      // TODO replace the following by a function. faire 1 seul dayOff pour pedago + conges + samedi + dimanche
       // display opening weekdays only
       var pedago = formattedDate.search(pedagoDays[0]);
       var dayOff = formattedDate.search(dayOffs[0]);
@@ -163,6 +164,7 @@ $(document).ready(function() {
 
 
         // display mainDish
+        // TODO display select
         var mainDish = mainDishes[i];
         // console.log(mainDishes[i]);
         $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
@@ -172,6 +174,12 @@ $(document).ready(function() {
 
         // display water
         $('.calendar__beverage').text(beverageItems[0]);
+
+        // display dessert
+        // TODO display select
+        var dessert = desserts[i];
+        // console.log('nombre de desserts :', desserts.length);
+        $(".calendar__dessert:contains('%dessert%')").text(dessert);
 
       } // end for loop calendarItems
 
@@ -205,22 +213,21 @@ $(document).ready(function() {
         formattedDate = formattedDate.replace('2018', '');
         formattedDays.push(formattedDate) + 1;
     }
-    // console.log(formattedDays);
+    console.log('nombre de jours dans la fonction', formattedDays.length);
     // console.log(formattedDate);
-    //
+
 
     // TODO eliminer les weekends ici et les pedago, conges.
+
     return formattedDays;
 
   }
 
+  var ar = [1, 2, 3, 'a', 'b', 'c'];
+// arguments: start position, number of elements to delete
+console.log( ar.splice(3, 2) ); // ["a", "b"]
+console.log( ar ); // [1, 2, 3, "c"]
 
-  // function addFormattedDate(date){
-  //   var formattedDays = [];
-  //   formattedDays = formattedDays.push(date);
-  //   console.log(formattedDays);
-  //   return formattedDays;
-  // }
 
 
 
