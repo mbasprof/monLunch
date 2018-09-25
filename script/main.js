@@ -62,7 +62,7 @@ $(document).ready(function() {
     "Lanière de poulet avec couscous et légumes vapeur"
   ];
 
-  console.log('nombre de plats principaux :', mainDishes.length);
+  // console.log('nombre de plats principaux :', mainDishes.length);
   // var mainDishesSorted = mainDishes.sort();
   // console.log(mainDishesSorted);
 
@@ -96,6 +96,20 @@ $(document).ready(function() {
     "Salade de fruits"
   ];
 
+  const replacedDessert = 'Remplacer le yogourt par un autre dessert SVP';
+
+  // Replace yogourt
+  function replaceDessert(str, arr) {
+    var index = arr.indexOf(str);
+
+    if (index !== -1) {
+      arr[index] = replacedDessert;
+    }
+  }
+
+  // console.log(desserts);
+
+
   // console.log('nombre de desserts :' ,  desserts.length)
 
   // Side Orders
@@ -108,24 +122,22 @@ $(document).ready(function() {
     'Lait 2%'
   ];
 
-
-  // // DISPLAY THE CALENDAR
-  var calendarItemHtml, calendarItems, newCalendarItem, sideOrderHtml, pedagoDays, dayOffs, noOrders;
-
-  // define days off (pedago, etc.)
-  pedagoDays = ['lundi 1 octobre'];
-  dayOffs = ['lundi 8 octobre'];
-  noOrders = [];
+  // define non opening days (pedago, days off)
+  const pedagoDay01 = 'lundi 1 octobre';
+  const dayOff01 = 'lundi 8 octobre';
+  // noOrders = [];
   // console.log(pedagoDays, dayOffs, noOrders);
 
+  // DISPLAY THE CALENDAR
+  var calendarItemHtml, calendarItems, newCalendarItem, sideOrderHtml, noOrders;
 
-  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="alert alert-info" role="alert">Aucune indication particulière</span></li></ul>';
+  // DOM elements
+  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span>Aucune indication particulière</span></li></ul>';
 
 
   // get all the opening days of the month with French format
   calendarItems = getDaysInMonth(9, 2018);
-  console.log('nombre de calendarItems hors de la fonction ', calendarItems.length);
-
+  // console.log('nombre de calendarItems hors de la fonction ', calendarItems.length);
 
   // display all the opening days of the month
   for (var i = 0; i < calendarItems.length; i++) {
@@ -160,15 +172,25 @@ $(document).ready(function() {
 
     // display dessert
     // TODO display select to choose among different options
+    replaceDessert('Yogourt', desserts);
+    replaceDessert('Yogourt en tube', desserts);
     var dessert = desserts[i];
     // console.log('nombre de desserts :', desserts.length);
-    $(".calendar__dessert:contains('%dessert%')").text(dessert);
+    // console.log('chaque dessert :', desserts[i]);
+
+    if (desserts[i] !== replacedDessert) {
+      $(".calendar__dessert:contains('%dessert%')").text(dessert);
+    } else {
+      $(".calendar__dessert:contains('%dessert%')").text(dessert)
+        .css({
+          'background-color': '#fcf8e3', // alert warning color
+        });
+    }
 
     // display special indication
-    // TODO display special indication
+    // TODO display special indication with alert alert-info classes
 
   } // end for loop calendarItems
-
 
 
   // get all days of a selected month and year
@@ -180,15 +202,13 @@ $(document).ready(function() {
 
       // create array of opening days only
       if ((date.getDay() != 0) && (date.getDay() != 6)) {
-
         // console.log('jour de semaine');
         days.push(new Date(date));
-
       }
       date.setDate(date.getDate() + 1);
     }
 
-    // Format the date in French 'lundi 1 octobre'
+    // Format the date as in French 'lundi 1 octobre'
     var formattedDays = [];
     var dateOptions = {
       weekday: 'long',
@@ -205,10 +225,10 @@ $(document).ready(function() {
       // console.log(formattedDate);
     }
 
-    // Remove days offs (pedago and conges)
-    removeDaysOff('lundi 1 octobre', formattedDays);
-    removeDaysOff('lundi 8 octobre', formattedDays);
-    console.log('nombre de jours dans la fonction', formattedDays.length);
+    // Remove non-opening days (pedago and days off)
+    removeDaysOff(pedagoDay01, formattedDays);
+    removeDaysOff(dayOff01, formattedDays);
+    // console.log('nombre de jours dans la fonction', formattedDays.length);
 
     return formattedDays;
 
@@ -222,7 +242,6 @@ $(document).ready(function() {
     var pos = arr.indexOf(str);
     // console.log('jour et index de la string: ', str + " " + pos);
     arr.splice(pos, 1);
-    // delete arr[pos];
   }
 
 
