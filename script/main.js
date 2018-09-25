@@ -35,7 +35,7 @@ $(document).ready(function() {
 
   // DATA
 
-  var mainDishes, replacementDishes, desserts, beverageItems;
+  var mainDishes, replacementDishes, desserts, beverages;
 
   // main dishes
   mainDishes = [
@@ -64,11 +64,9 @@ $(document).ready(function() {
 
   console.log('nombre de plats principaux :', mainDishes.length);
   // var mainDishesSorted = mainDishes.sort();
-
-
   // console.log(mainDishesSorted);
 
-  // replacement main dishes
+  // Replacement main dishes
   replacementDishes = [
     "Pâtes avec boulettes en sauce ou spaghetti sauce à la viande",
     "Croquettes de poulet cuites au four",
@@ -77,7 +75,6 @@ $(document).ready(function() {
     "Sandwich dinde et fromage sur croissant ou baguette"
 
   ];
-
   // console.log('nombre de plats de remplacement :' , replacementDishes.length);
 
   // Desserts
@@ -105,7 +102,7 @@ $(document).ready(function() {
   const sideOrder = 'Crudités';
 
   // Beverages
-  beverageItems = [
+  beverages = [
     'Eau',
     'Jus',
     'Lait 2%'
@@ -122,31 +119,19 @@ $(document).ready(function() {
   // console.log(pedagoDays, dayOffs, noOrders);
 
 
-  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="alert alert-info" role="alert">%note%</span></li></ul>';
+  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="alert alert-info" role="alert">Aucune indication particulière</span></li></ul>';
 
 
-  // get all the opening days of the month
+  // get all the opening days of the month with French format
   calendarItems = getDaysInMonth(9, 2018);
   console.log('nombre de calendarItems hors de la fonction ', calendarItems.length);
 
 
-
   // display all the opening days of the month
   for (var i = 0; i < calendarItems.length; i++) {
-    // display the formatted date
-    var formattedDate = calendarItems[i];
 
+    var openingDay = calendarItems[i];
 
-
-    // display opening weekdays only
-    // var saturday = formattedDate.search('samedi');
-    // var sunday = formattedDate.search('dimanche');
-    // var isDayOff = false;
-    //
-    // if (saturday === -1 && sunday === -1) {
-    //
-    //   isDayOff = true;
-    //
     // add a new calendar item
     newCalendarItem = $('<div class="calendar__item card m-2 col-12 col-sm-12 col-md-6 col-lg-3">').html(calendarItemHtml);
     $('#menus > .row').append(newCalendarItem);
@@ -157,11 +142,12 @@ $(document).ready(function() {
       return 'calendar__' + (i + 1);
     });
 
-    $("h4:contains('%date%')").text(formattedDate);
+    $("h4:contains('%date%')").text(openingDay);
 
 
-    // display mainDish
-    // TODO display select
+    // TODO display select to choose between default mainDish and replacement Dish
+
+    // display default mainDish
     var mainDish = mainDishes[i];
     // console.log(mainDishes[i]);
     $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
@@ -170,13 +156,16 @@ $(document).ready(function() {
     $('.calendar__sideOrder').text(sideOrder);
 
     // display water
-    $('.calendar__beverage').text(beverageItems[0]);
+    $('.calendar__beverage').text(beverages[0]);
 
     // display dessert
-    // TODO display select
+    // TODO display select to choose among different options
     var dessert = desserts[i];
     // console.log('nombre de desserts :', desserts.length);
     $(".calendar__dessert:contains('%dessert%')").text(dessert);
+
+    // display special indication
+    // TODO display special indication
 
   } // end for loop calendarItems
 
