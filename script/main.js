@@ -62,7 +62,7 @@ $(document).ready(function() {
     "Lanière de poulet avec couscous et légumes vapeur"
   ];
 
-  // console.log('nombre de plats principaux :' , mainDishes.length);
+  console.log('nombre de plats principaux :', mainDishes.length);
   // var mainDishesSorted = mainDishes.sort();
 
 
@@ -127,61 +127,58 @@ $(document).ready(function() {
 
   // get all the opening days of the month
   calendarItems = getDaysInMonth(9, 2018);
-// console.log('nombre de calendarItems ', calendarItems.length);
+  console.log('nombre de calendarItems hors de la fonction ', calendarItems.length);
+
+
 
   // display all the opening days of the month
-    for (var i = 0; i < calendarItems.length; i++) {
-      // display the formatted date
-      var formattedDate = calendarItems[i];
-
-      // TODO replace the following by a function. faire 1 seul dayOff pour pedago + conges + samedi + dimanche
-      // display opening weekdays only
-      var pedago = formattedDate.search(pedagoDays[0]);
-      var dayOff = formattedDate.search(dayOffs[0]);
-      var saturday = formattedDate.search('samedi');
-      var sunday = formattedDate.search('dimanche');
-      var isDayOff = false;
-
-      if (saturday === -1 && sunday === -1 && pedago === -1 && dayOff === -1) {
-
-        isDayOff = true;
-
-        // add a new calendar item
-        newCalendarItem = $('<div class="calendar__item card m-2 col-12 col-sm-12 col-md-6 col-lg-3">').html(calendarItemHtml);
-        $('#menus > .row').append(newCalendarItem);
-
-        // add an id to each calendar item
-        var id = 'calendar__' + i;
-        $('.calendar__item').attr('id', function(i) {
-          return 'calendar__' + (i + 1);
-        });
-
-        $("h4:contains('%date%')").text(formattedDate);
-
-      } else {
-        isDayOff = false; // on n'affiche rien
-      }
+  for (var i = 0; i < calendarItems.length; i++) {
+    // display the formatted date
+    var formattedDate = calendarItems[i];
 
 
-        // display mainDish
-        // TODO display select
-        var mainDish = mainDishes[i];
-        // console.log(mainDishes[i]);
-        $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
 
-        // display the sideOrder
-        $('.calendar__sideOrder').text(sideOrder);
+    // display opening weekdays only
+    // var saturday = formattedDate.search('samedi');
+    // var sunday = formattedDate.search('dimanche');
+    // var isDayOff = false;
+    //
+    // if (saturday === -1 && sunday === -1) {
+    //
+    //   isDayOff = true;
+    //
+    // add a new calendar item
+    newCalendarItem = $('<div class="calendar__item card m-2 col-12 col-sm-12 col-md-6 col-lg-3">').html(calendarItemHtml);
+    $('#menus > .row').append(newCalendarItem);
 
-        // display water
-        $('.calendar__beverage').text(beverageItems[0]);
+    // add an id to each calendar item
+    var id = 'calendar__' + i;
+    $('.calendar__item').attr('id', function(i) {
+      return 'calendar__' + (i + 1);
+    });
 
-        // display dessert
-        // TODO display select
-        var dessert = desserts[i];
-        // console.log('nombre de desserts :', desserts.length);
-        $(".calendar__dessert:contains('%dessert%')").text(dessert);
+    $("h4:contains('%date%')").text(formattedDate);
 
-      } // end for loop calendarItems
+
+    // display mainDish
+    // TODO display select
+    var mainDish = mainDishes[i];
+    // console.log(mainDishes[i]);
+    $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
+
+    // display the sideOrder
+    $('.calendar__sideOrder').text(sideOrder);
+
+    // display water
+    $('.calendar__beverage').text(beverageItems[0]);
+
+    // display dessert
+    // TODO display select
+    var dessert = desserts[i];
+    // console.log('nombre de desserts :', desserts.length);
+    $(".calendar__dessert:contains('%dessert%')").text(dessert);
+
+  } // end for loop calendarItems
 
 
 
@@ -190,13 +187,17 @@ $(document).ready(function() {
     var date = new Date(year, month, 1);
     var days = [];
 
-
     while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
 
+      // create array of opening days only
+      if ((date.getDay() != 0) && (date.getDay() != 6)) {
+
+        // console.log('jour de semaine');
+        days.push(new Date(date));
+
+      }
+      date.setDate(date.getDate() + 1);
     }
-    // console.log(days);
 
     // Format the date in French 'lundi 1 octobre'
     var formattedDays = [];
@@ -208,25 +209,32 @@ $(document).ready(function() {
     };
 
     for (var i = 0; i < days.length; i++) {
-        var formattedDate = days[i];
-        formattedDate = formattedDate.toLocaleDateString("fr-FR", dateOptions);
-        formattedDate = formattedDate.replace('2018', '');
-        formattedDays.push(formattedDate) + 1;
+      var formattedDate = days[i];
+      formattedDate = formattedDate.toLocaleDateString("fr-FR", dateOptions);
+      formattedDate = formattedDate.replace(' 2018', '');
+      formattedDays.push(formattedDate) + 1;
+      // console.log(formattedDate);
     }
+
+    // Remove days offs (pedago and conges)
+    removeDaysOff('lundi 1 octobre', formattedDays);
+    removeDaysOff('lundi 8 octobre', formattedDays);
     console.log('nombre de jours dans la fonction', formattedDays.length);
-    // console.log(formattedDate);
-
-
-    // TODO eliminer les weekends ici et les pedago, conges.
 
     return formattedDays;
 
   }
 
-  var ar = [1, 2, 3, 'a', 'b', 'c'];
-// arguments: start position, number of elements to delete
-console.log( ar.splice(3, 2) ); // ["a", "b"]
-console.log( ar ); // [1, 2, 3, "c"]
+
+  // remove DaysOff
+  function removeDaysOff(str, arr) {
+    var days = arr;
+    // console.log('days dans fonction remove: ', days);
+    var pos = arr.indexOf(str);
+    // console.log('jour et index de la string: ', str + " " + pos);
+    arr.splice(pos, 1);
+    // delete arr[pos];
+  }
 
 
 
