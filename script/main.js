@@ -108,8 +108,6 @@ $(document).ready(function() {
   }
 
   // console.log(desserts);
-
-
   // console.log('nombre de desserts :' ,  desserts.length)
 
   // Side Orders
@@ -132,7 +130,7 @@ $(document).ready(function() {
   var calendarItemHtml, calendarItems, newCalendarItem, sideOrderHtml, noOrders;
 
   // DOM elements
-  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span>Aucune indication particulière</span></li></ul>';
+  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="small text-secondary">Aucune indication particulière</span></li></ul>';
 
 
   // get all the opening days of the month with French format
