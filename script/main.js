@@ -35,7 +35,7 @@ $(document).ready(function() {
 
   // DATA
 
-  var mainDishes, replacementDishes, desserts, beverages;
+  var mainDishes, replacementDishes, desserts, desserts2, beverages;
 
   // main dishes
   mainDishes = [
@@ -80,21 +80,52 @@ $(document).ready(function() {
   // Desserts
 
   desserts = [
-    "Biscuit, fruit",
-    "Biscuit d’avoine",
-    "Mini-muffin chocolat, fruit",
-    "Dessert, fruit",
-    "Compote de pommes ou un fruit",
-    "Pain au banane",
-    "Mini-muffin aux son",
-    "Barre tendre, fruit",
-    "Yogourt",
-    "Muffin aux pommes",
-    "Fruit",
-    "Mini-muffin, fruit",
-    "Yogourt en tube",
-    "Salade de fruits"
+    "Biscuit, fruit" ,
+    "Biscuit d’avoine" ,
+    "Mini-muffin chocolat, fruit" ,
+    "Dessert, fruit" ,
+    "Compote de pommes ou un fruit" ,
+    "Pain au banane" ,
+    "Mini-muffin aux son" ,
+    "Dessert, fruit" ,
+    "Barre tendre, fruit" ,
+     "Yogourt" ,
+     "Biscuit, fruit" ,
+     "Muffin aux pommes" ,
+     "Dessert, fruit" ,
+     "Fruit" ,
+     "Yogourt" ,
+     "Biscuit, fruit" ,
+     "Mini-muffin, fruit" ,
+     "Dessert, fruit" ,
+     "Barre tendre, fruit" ,
+     "Yogourt en tube" ,
+     "Salade de fruits"
   ];
+
+  // desserts2 = [
+  //   { val : 1, text : "Biscuit, fruit" },
+  //   { val : 2, text : "Biscuit d’avoine" },
+  //   { val : 3, text : "Mini-muffin chocolat, fruit" },
+  //   { val : 4, text : "Dessert, fruit" },
+  //   { val : 5, text : "Compote de pommes ou un fruit" },
+  //   { val : 6, text : "Pain au banane" },
+  //   { val : 7, text : "Mini-muffin aux son" },
+  //   { val : 8, text : "Dessert, fruit" },
+  //   { val : 9, text : "Barre tendre, fruit" },
+  //   { val : 10, text : "Yogourt" },
+  //   { val : 11, text : "Biscuit, fruit" },
+  //   { val : 12, text : "Muffin aux pommes" },
+  //   { val : 13, text : "Dessert, fruit" },
+  //   { val : 14, text : "Fruit" },
+  //   { val : 15, text : "Yogourt" },
+  //   { val : 16, text : "Biscuit, fruit" },
+  //   { val : 17, text : "Mini-muffin, fruit" },
+  //   { val : 18, text : "Dessert, fruit" },
+  //   { val : 19, text : "Barre tendre, fruit" },
+  //   { val : 20, text : "Yogourt en tube" },
+  //   { val : 21, text : "Salade de fruits" }
+  // ];
 
   const replacedDessert = 'Remplacer le yogourt par un autre dessert SVP';
 
@@ -108,7 +139,7 @@ $(document).ready(function() {
   }
 
   // console.log(desserts);
-  // console.log('nombre de desserts :' ,  desserts.length)
+  console.log('nombre de desserts :', desserts.length)
 
   // Side Orders
   const sideOrder = 'Crudités';
@@ -127,11 +158,11 @@ $(document).ready(function() {
   // console.log(pedagoDays, dayOffs, noOrders);
 
   // DISPLAY THE CALENDAR
-  var calendarItemHtml, calendarItems, newCalendarItem, sideOrderHtml, noOrders;
+  var calendarItemHtml, calendarItems, newCalendarItem, dessertsHtml, noOrders;
 
-  // DOM elements
+  // DOM String elements
   calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="small text-secondary">Aucune indication particulière</span></li></ul>';
-
+  // dessertsHtml = '<select name="desserts" class="desserts"></select>';
 
   // get all the opening days of the month with French format
   calendarItems = getDaysInMonth(9, 2018);
@@ -147,10 +178,7 @@ $(document).ready(function() {
     $('#menus > .row').append(newCalendarItem);
 
     // add an id to each calendar item
-    var id = 'calendar__' + i;
-    $('.calendar__item').attr('id', function(i) {
-      return 'calendar__' + (i + 1);
-    });
+    addHtmlAttr('.calendar__item', 'id', 'calendar');
 
     $("h4:contains('%date%')").text(openingDay);
 
@@ -170,11 +198,14 @@ $(document).ready(function() {
 
     // display dessert
     // TODO display select to choose among different options
+    $(".calendar__dessert").html(dessertsHtml);
+
+
     replaceDessert('Yogourt', desserts);
     replaceDessert('Yogourt en tube', desserts);
     var dessert = desserts[i];
-    // console.log('nombre de desserts :', desserts.length);
-    // console.log('chaque dessert :', desserts[i]);
+    console.log('nombre de desserts :', desserts.length);
+    console.log('chaque dessert :', desserts[i]);
 
     if (desserts[i] !== replacedDessert) {
       $(".calendar__dessert:contains('%dessert%')").text(dessert);
@@ -190,6 +221,56 @@ $(document).ready(function() {
 
   } // end for loop calendarItems
 
+  // NON UTILISEE POUR AFFICHER SELECT
+  // display the select element for desserts
+  // var sel = $('<select>').appendTo('.calendar__dessert');
+  // $(desserts2).each(function() {
+  //  sel.append($("<option>").attr('value',this.val).text(this.text));
+  // });
+
+  // display select element
+  function displaySelect(arr, item) {
+    // sort the array
+    arr.sort();
+
+    //create the select element with an id
+    var newSelect = $('<select>');
+    var idSelect = 'select__' + item;
+    // console.log(idSelect);
+
+    $('#demo').append(newSelect);
+    $('select')
+      .attr('id', idSelect)
+      .attr('name', idSelect);
+
+    // create the select options with a value
+    for (var i = 0; i < arr.length; i++) {
+      var newOption = $('<option>');
+      $('select').append(newOption);
+
+      // add the value attribute to each option
+      addHtmlAttr('option', 'value', item);
+
+      // populate each option
+console.log(arr[i]);
+// $('option').text('toto');
+
+    }
+
+
+  } // end function displaySelect
+
+
+  // console.log(desserts.length);
+
+  // add an attribute to an html element
+  function addHtmlAttr(el, attribute, item) {
+    var attr = item + '__';
+    $(el).attr(attribute, function(i) {
+      return item + '__' + (i + 1);
+    });
+
+  } // end function addHtmlAttr()
 
   // get all days of a selected month and year
   function getDaysInMonth(month, year) {
@@ -230,7 +311,7 @@ $(document).ready(function() {
 
     return formattedDays;
 
-  }
+  } // end function getDaysInMonth()
 
 
   // remove DaysOff
@@ -240,7 +321,7 @@ $(document).ready(function() {
     var pos = arr.indexOf(str);
     // console.log('jour et index de la string: ', str + " " + pos);
     arr.splice(pos, 1);
-  }
+  } // end function removeDaysOff()
 
 
 
