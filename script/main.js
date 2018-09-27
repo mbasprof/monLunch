@@ -77,6 +77,15 @@ $(document).ready(function() {
   ];
   // console.log('nombre de plats de remplacement :' , replacementDishes.length);
 
+  //TODO replace some Main dishes by replacementDishes
+  // Tortellini aux trois fromages
+  // Mini-pizza
+  // Chili
+  // Macaroni sans froomage, sandwich aux oeufs, sandwich au poulet, croissant,  pour Gael
+  // poulet au beurre
+  // sandwich aux oeufs pour leo
+  // hautes de cuisse au beurre
+
   // Desserts
 
   desserts = [
@@ -190,6 +199,9 @@ $(document).ready(function() {
     // console.log(mainDishes[i]);
     $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
 
+    //TODO replace some Main dishes by replacementDishes
+
+
     // display the sideOrder
     $('.calendar__sideOrder').text(sideOrder);
 
@@ -200,7 +212,7 @@ $(document).ready(function() {
     // TODO display select to choose among different options
     $(".calendar__dessert").html(dessertsHtml);
 
-
+    // replace yogourt by another dessert
     replaceDessert('Yogourt', desserts);
     replaceDessert('Yogourt en tube', desserts);
     var dessert = desserts[i];
