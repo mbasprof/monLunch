@@ -4,7 +4,7 @@
 $(document).ready(function() {
   'use strict';
 
-  console.log('DOM is ready');
+  // console.log('DOM is ready');
 
 
   // display the current month and year
@@ -35,7 +35,7 @@ $(document).ready(function() {
 
   // DATA
 
-  var mainDishes, replacementDishes, desserts, desserts2, beverages;
+  var mainDishes, desserts, desserts2, beverages;
 
   // main dishes
   mainDishes = [
@@ -66,51 +66,42 @@ $(document).ready(function() {
   // var mainDishesSorted = mainDishes.sort();
   // console.log(mainDishesSorted);
 
+
   // Replacement main dishes
-  replacementDishes = [
-    "Pâtes avec boulettes en sauce ou spaghetti sauce à la viande",
-    "Croquettes de poulet cuites au four",
-    "Crêpes jambon et fromage",
-    "Salade César au poulet",
-    "Sandwich dinde et fromage sur croissant ou baguette"
+  const pates = "Pâtes avec boulettes en sauce";
+  const croquettes = "Croquettes de poulet cuites au four";
+  const crepes = "Crêpes jambon et fromage";
+  const salade = "Salade César au poulet";
+  const sandwich = "Sandwich dinde et fromage sur baguette";
 
-  ];
-  // console.log('nombre de plats de remplacement :' , replacementDishes.length);
-
-  //TODO replace some Main dishes by replacementDishes
-  // Tortellini aux trois fromages
-  // Mini-pizza
-  // Chili
-  // Macaroni sans froomage, sandwich aux oeufs, sandwich au poulet, croissant,  pour Gael
-  // poulet au beurre
-  // sandwich aux oeufs pour leo
-  // hautes de cuisse au beurre
 
   // Desserts
-
   desserts = [
-    "Biscuit, fruit" ,
-    "Biscuit d’avoine" ,
-    "Mini-muffin chocolat, fruit" ,
-    "Dessert, fruit" ,
-    "Compote de pommes ou un fruit" ,
-    "Pain au banane" ,
-    "Mini-muffin aux son" ,
-    "Dessert, fruit" ,
-    "Barre tendre, fruit" ,
-     "Yogourt" ,
-     "Biscuit, fruit" ,
-     "Muffin aux pommes" ,
-     "Dessert, fruit" ,
-     "Fruit" ,
-     "Yogourt" ,
-     "Biscuit, fruit" ,
-     "Mini-muffin, fruit" ,
-     "Dessert, fruit" ,
-     "Barre tendre, fruit" ,
-     "Yogourt en tube" ,
-     "Salade de fruits"
+    "Biscuit, fruit",
+    "Biscuit d’avoine",
+    "Mini-muffin chocolat, fruit",
+    "Dessert, fruit",
+    "Compote de pommes ou un fruit",
+    "Pain au banane",
+    "Mini-muffin aux son",
+    "Dessert, fruit",
+    "Barre tendre, fruit",
+    "Yogourt",
+    "Biscuit, fruit",
+    "Muffin aux pommes",
+    "Dessert, fruit",
+    "Fruit",
+    "Yogourt",
+    "Biscuit, fruit",
+    "Mini-muffin, fruit",
+    "Dessert, fruit",
+    "Barre tendre, fruit",
+    "Yogourt en tube",
+    "Salade de fruits"
   ];
+  // console.log(desserts);
+  // console.log('nombre de desserts :', desserts.length)
+
 
   // desserts2 = [
   //   { val : 1, text : "Biscuit, fruit" },
@@ -138,17 +129,6 @@ $(document).ready(function() {
 
   const replacedDessert = 'Remplacer le yogourt par un autre dessert SVP';
 
-  // Replace yogourt
-  function replaceDessert(str, arr) {
-    var index = arr.indexOf(str);
-
-    if (index !== -1) {
-      arr[index] = replacedDessert;
-    }
-  }
-
-  // console.log(desserts);
-  console.log('nombre de desserts :', desserts.length)
 
   // Side Orders
   const sideOrder = 'Crudités';
@@ -167,7 +147,7 @@ $(document).ready(function() {
   // console.log(pedagoDays, dayOffs, noOrders);
 
   // DISPLAY THE CALENDAR
-  var calendarItemHtml, calendarItems, newCalendarItem, dessertsHtml, noOrders;
+  var calendarItemHtml, calendarItems, newCalendarItem, dessertsHtml, noOrders, domElement;
 
   // DOM String elements
   calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="small text-secondary">Aucune indication particulière</span></li></ul>';
@@ -192,14 +172,38 @@ $(document).ready(function() {
     $("h4:contains('%date%')").text(openingDay);
 
 
-    // TODO display select to choose between default mainDish and replacement Dish
 
     // display default mainDish
-    var mainDish = mainDishes[i];
     // console.log(mainDishes[i]);
-    $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
 
-    //TODO replace some Main dishes by replacementDishes
+    // replace some Main dishes by replacementDishes
+    // TODO insert a select to choose between default mainDish and replacement Dish
+    // $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
+    replaceDish('Tortellini aux trois fromages sauce rosé', mainDishes, pates);
+    replaceDish('Mini-pizza poulet tomates et fromage mozzarella', mainDishes, croquettes);
+    replaceDish('Chili au boeuf avec pain plat', mainDishes, pates);
+    replaceDish('Macaroni aux fromages gratiné', mainDishes, croquettes);
+    replaceDish('Macaroni sauce à la viande avec fromage', mainDishes, pates);
+    var mainDish = mainDishes[i];
+
+    // add background-color and bold styles
+    domElement = ".calendar__mainDish:contains('%mainDish%')";
+    if (mainDishes[i] !== croquettes && mainDishes[i] !== pates) {
+      $(domElement).text(mainDish);
+    } else {
+      addStyles(domElement);
+      $(domElement).text(mainDish);
+    }
+    // if (mainDishes[i] !== croquettes && mainDishes[i] !== pates) {
+    //   $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
+    // } else {
+    //   $(".calendar__mainDish:contains('%mainDish%')")
+    //     .css({
+    //       'background-color': '#fcf8e3', // alert warning color
+    //       'font-weight': 'bold', // alert warning color
+    //     })
+    //     .text(mainDish);
+    // }
 
 
     // display the sideOrder
@@ -213,19 +217,16 @@ $(document).ready(function() {
     $(".calendar__dessert").html(dessertsHtml);
 
     // replace yogourt by another dessert
-    replaceDessert('Yogourt', desserts);
-    replaceDessert('Yogourt en tube', desserts);
+    replaceDish('Yogourt', desserts, replacedDessert);
+    replaceDish('Yogourt en tube', desserts, replacedDessert);
     var dessert = desserts[i];
-    console.log('nombre de desserts :', desserts.length);
-    console.log('chaque dessert :', desserts[i]);
 
+    domElement = ".calendar__dessert:contains('%dessert%')";
     if (desserts[i] !== replacedDessert) {
-      $(".calendar__dessert:contains('%dessert%')").text(dessert);
+      $(domElement).text(dessert);
     } else {
-      $(".calendar__dessert:contains('%dessert%')").text(dessert)
-        .css({
-          'background-color': '#fcf8e3', // alert warning color
-        });
+      addStyles(domElement);
+      $(domElement).text(dessert);
     }
 
     // display special indication
@@ -233,7 +234,7 @@ $(document).ready(function() {
 
   } // end for loop calendarItems
 
-  // NON UTILISEE POUR AFFICHER SELECT
+  // TODO PAS ENCORE UTILISEE POUR AFFICHER SELECT
   // display the select element for desserts
   // var sel = $('<select>').appendTo('.calendar__dessert');
   // $(desserts2).each(function() {
@@ -264,8 +265,8 @@ $(document).ready(function() {
       addHtmlAttr('option', 'value', item);
 
       // populate each option
-console.log(arr[i]);
-// $('option').text('toto');
+      console.log(arr[i]);
+      // $('option').text('toto');
 
     }
 
@@ -336,7 +337,20 @@ console.log(arr[i]);
   } // end function removeDaysOff()
 
 
+  // Replace dish
+  function replaceDish(str, arr, dish) {
+    var index = arr.indexOf(str);
 
+    if (index !== -1) {
+      arr[index] = dish;
+    }
+  }
 
+  // Add background color to menu changes
+  function addStyles(el) {
+    $(el).css({
+      'background-color': '#d9edf7', // alert warning color
+    });
+  }
 
 }); // DOM ready
