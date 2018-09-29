@@ -28,7 +28,7 @@ $(document).ready(function() {
   var student02 = new Student('Leo', 'Gonzalez Bastide', '3ème année', 'Ecole Ile des Soeurs');
 
   // display info current student
-  $('.student__name').text(student01.firstName + ' ' + student01.lastName);
+  $('.student__name').text(student02.firstName + ' ' + student02.lastName);
   $('.student__schoolYear').text(student01.schoolYear);
   $('.student__school').text(student01.school);
 
