@@ -27,11 +27,12 @@ $(document).ready(function() {
   var student01 = new Student('Gael', 'Gonzalez Bastide', '3ème année', 'Ecole Ile des Soeurs');
   var student02 = new Student('Leo', 'Gonzalez Bastide', '3ème année', 'Ecole Ile des Soeurs');
 
+  // console.log(student02.firstName);
+
   // display info current student
   $('.student__name').text(student02.firstName + ' ' + student02.lastName);
   $('.student__schoolYear').text(student01.schoolYear);
   $('.student__school').text(student01.school);
-
 
   // DATA
 
@@ -73,6 +74,7 @@ $(document).ready(function() {
   const crepes = "Crêpes jambon et fromage";
   const salade = "Salade César au poulet";
   const sandwich = "Sandwich dinde et fromage sur baguette";
+  const sandwich02 = "Sandwich au poulet";
 
 
   // Desserts
@@ -129,7 +131,6 @@ $(document).ready(function() {
 
   const replacedDessert = 'Remplacer le yogourt par un autre dessert SVP';
 
-
   // Side Orders
   const sideOrder = 'Crudités';
 
@@ -146,11 +147,14 @@ $(document).ready(function() {
   // noOrders = [];
   // console.log(pedagoDays, dayOffs, noOrders);
 
+
+
   // DISPLAY THE CALENDAR
   var calendarItemHtml, calendarItems, newCalendarItem, dessertsHtml, noOrders, domElement;
 
   // DOM String elements
-  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="small text-secondary">Aucune indication particulière</span></li></ul>';
+  calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li></ul>';
+  // calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li><li class="calendar__note list-group-item"><span class="small text-secondary">Aucune indication particulière</span></li></ul>';
   // dessertsHtml = '<select name="desserts" class="desserts"></select>';
 
   // get all the opening days of the month with French format
@@ -171,42 +175,34 @@ $(document).ready(function() {
 
     $("h4:contains('%date%')").text(openingDay);
 
-
-
     // display default mainDish
     // console.log(mainDishes[i]);
 
-    // replace some Main dishes by replacementDishes
+    // replace some main dishes by replacementDishes
     // TODO insert a select to choose between default mainDish and replacement Dish
-    // $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
     replaceDish('Tortellini aux trois fromages sauce rosé', mainDishes, pates);
     replaceDish('Mini-pizza poulet tomates et fromage mozzarella', mainDishes, croquettes);
     replaceDish('Chili au boeuf avec pain plat', mainDishes, pates);
     replaceDish('Macaroni aux fromages gratiné', mainDishes, croquettes);
     replaceDish('Macaroni sauce à la viande avec fromage', mainDishes, pates);
+
+if ($(".student__name:contains('Leo')").length > 0){
+    replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
+}
+    // replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
     var mainDish = mainDishes[i];
 
-    // add background-color and bold styles
+    // add background-color styles to the replaced dish
     domElement = ".calendar__mainDish:contains('%mainDish%')";
-    if (mainDishes[i] !== croquettes && mainDishes[i] !== pates) {
+    if (mainDishes[i] !== croquettes && mainDishes[i] !== pates && mainDishes[i] !== sandwich02) {
       $(domElement).text(mainDish);
     } else {
       addStyles(domElement);
       $(domElement).text(mainDish);
     }
-    // if (mainDishes[i] !== croquettes && mainDishes[i] !== pates) {
-    //   $(".calendar__mainDish:contains('%mainDish%')").text(mainDish);
-    // } else {
-    //   $(".calendar__mainDish:contains('%mainDish%')")
-    //     .css({
-    //       'background-color': '#fcf8e3', // alert warning color
-    //       'font-weight': 'bold', // alert warning color
-    //     })
-    //     .text(mainDish);
-    // }
 
 
-    // display the sideOrder
+    // display the side Order
     $('.calendar__sideOrder').text(sideOrder);
 
     // display water
@@ -234,47 +230,23 @@ $(document).ready(function() {
 
   } // end for loop calendarItems
 
-  // TODO PAS ENCORE UTILISEE POUR AFFICHER SELECT
-  // display the select element for desserts
-  // var sel = $('<select>').appendTo('.calendar__dessert');
-  // $(desserts2).each(function() {
-  //  sel.append($("<option>").attr('value',this.val).text(this.text));
-  // });
+  // remove the lettuce for Leo
+  if ($(".student__name:contains('Leo')").length > 0) {
 
-  // display select element
-  function displaySelect(arr, item) {
-    // sort the array
-    arr.sort();
-
-    //create the select element with an id
-    var newSelect = $('<select>');
-    var idSelect = 'select__' + item;
-    // console.log(idSelect);
-
-    $('#demo').append(newSelect);
-    $('select')
-      .attr('id', idSelect)
-      .attr('name', idSelect);
-
-    // create the select options with a value
-    for (var i = 0; i < arr.length; i++) {
-      var newOption = $('<option>');
-      $('select').append(newOption);
-
-      // add the value attribute to each option
-      addHtmlAttr('option', 'value', item);
-
-      // populate each option
-      console.log(arr[i]);
-      // $('option').text('toto');
-
-    }
+    $("li:contains('laitue')").text(function(index, text) {
+      // $(this).css('font-weight', 'bold');
+      $(this).css('background-color', '#fcf8e3');
+      return text.replace('laitue', 'SANS laitue');
+    });
+  }
 
 
-  } // end function displaySelect
+  // Display the total amount to pay
+    const lunchPrice = 6.3;
+    var totalToPay = totalAmount('.calendar__item', 2);
+    // console.log(totalToPay);
+  $('.amount__topay').text(totalToPay + ' CAD');
 
-
-  // console.log(desserts.length);
 
   // add an attribute to an html element
   function addHtmlAttr(el, attribute, item) {
@@ -284,6 +256,7 @@ $(document).ready(function() {
     });
 
   } // end function addHtmlAttr()
+
 
   // get all days of a selected month and year
   function getDaysInMonth(month, year) {
@@ -324,7 +297,7 @@ $(document).ready(function() {
 
     return formattedDays;
 
-  } // end function getDaysInMonth()
+  } // end getDaysInMonth()
 
 
   // remove DaysOff
@@ -334,23 +307,74 @@ $(document).ready(function() {
     var pos = arr.indexOf(str);
     // console.log('jour et index de la string: ', str + " " + pos);
     arr.splice(pos, 1);
-  } // end function removeDaysOff()
+  } // end removeDaysOff()
 
 
   // Replace dish
   function replaceDish(str, arr, dish) {
+
     var index = arr.indexOf(str);
 
     if (index !== -1) {
       arr[index] = dish;
     }
-  }
 
-  // Add background color to menu changes
+  } // end replaceDish()
+
+
+  // Add background color to special indications
   function addStyles(el) {
     $(el).css({
-      'background-color': '#d9edf7', // alert warning color
+      'background-color': '#d9edf7', // alert info color
     });
+  } // end addStyles()
+
+
+  // Calculate the total amount to pay
+  function totalAmount(el, decimals){
+    var lunchesQty = $(el).length;
+    // console.log(lunchesQty);
+    return parseFloat(lunchPrice * lunchesQty).toFixed(decimals);
   }
+
+
+  // TODO PAS ENCORE UTILISEE POUR AFFICHER SELECT
+  // display the select element for desserts
+  // var sel = $('<select>').appendTo('.calendar__dessert');
+  // $(desserts2).each(function() {
+  //  sel.append($("<option>").attr('value',this.val).text(this.text));
+  // });
+
+  // display select element
+  // function displaySelect(arr, item) {
+  //   // sort the array
+  //   arr.sort();
+  //
+  //   //create the select element with an id
+  //   var newSelect = $('<select>');
+  //   var idSelect = 'select__' + item;
+  //   // console.log(idSelect);
+  //
+  //   $('#demo').append(newSelect);
+  //   $('select')
+  //     .attr('id', idSelect)
+  //     .attr('name', idSelect);
+  //
+  //   // create the select options with a value
+  //   for (var i = 0; i < arr.length; i++) {
+  //     var newOption = $('<option>');
+  //     $('select').append(newOption);
+  //
+  //     // add the value attribute to each option
+  //     addHtmlAttr('option', 'value', item);
+  //
+  //     // populate each option
+  //     console.log(arr[i]);
+  //     // $('option').text('toto');
+  //
+  //   }
+  // } // end displaySelect()
+
+
 
 }); // DOM ready
