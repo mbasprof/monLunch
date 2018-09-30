@@ -24,6 +24,7 @@ $(document).ready(function() {
   }
 
   // define students
+  // TODO display select to choose among different students
   var student01 = new Student('Gael', 'Gonzalez Bastide', '3ème année', 'Ecole Ile des Soeurs');
   var student02 = new Student('Leo', 'Gonzalez Bastide', '3ème année', 'Ecole Ile des Soeurs');
 
@@ -186,11 +187,15 @@ $(document).ready(function() {
     replaceDish('Macaroni aux fromages gratiné', mainDishes, croquettes);
     replaceDish('Macaroni sauce à la viande avec fromage', mainDishes, pates);
 
-if ($(".student__name:contains('Leo')").length > 0){
-    replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
-}
+    // Pour Leo
+    if ($(".student__name:contains('Leo')").length > 0) {
+      replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
+    }
     // replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
     var mainDish = mainDishes[i];
+
+    // TODO Pour Gael remplacer tous les croissants et sandwichs
+
 
     // add background-color styles to the replaced dish
     domElement = ".calendar__mainDish:contains('%mainDish%')";
@@ -242,9 +247,9 @@ if ($(".student__name:contains('Leo')").length > 0){
 
 
   // Display the total amount to pay
-    const lunchPrice = 6.3;
-    var totalToPay = totalAmount('.calendar__item', 2);
-    // console.log(totalToPay);
+  const lunchPrice = 6.3;
+  var totalToPay = totalAmount('.calendar__item', 2);
+  // console.log(totalToPay);
   $('.amount__topay').text(totalToPay + ' CAD');
 
 
@@ -331,7 +336,7 @@ if ($(".student__name:contains('Leo')").length > 0){
 
 
   // Calculate the total amount to pay
-  function totalAmount(el, decimals){
+  function totalAmount(el, decimals) {
     var lunchesQty = $(el).length;
     // console.log(lunchesQty);
     return parseFloat(lunchPrice * lunchesQty).toFixed(decimals);
