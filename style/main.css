@@ -1,7 +1,11 @@
 /* Mon Lunch main css*/
 
 html {
- font-size: 80%; 
+ font-size: 80%;
+}
+
+body{
+  padding: 2rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -10,6 +14,13 @@ h1, h2, h3, h4, h5, h6 {
 
 ul {
   padding: 1rem 0 0.5rem;
+}
+.total{
+  width: 50%;
+}
+
+#calendar {
+  margin:2rem 0;
 }
 
 .calendar__note .alert-info {
