@@ -1,4 +1,4 @@
-// mon Lunch2 main js
+// Lunch/monLunch main js
 
 
 $(document).ready(function() {
