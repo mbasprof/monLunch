@@ -1,10 +1,10 @@
-/* Mon Lunch main css*/
+/* Lunch/Mon Lunch main css*/
 
 html {
- font-size: 80%;
+  font-size: 80%;
 }
 
-body{
+body {
   padding: 2rem;
 }
 
@@ -15,12 +15,31 @@ h1, h2, h3, h4, h5, h6 {
 ul {
   padding: 1rem 0 0.5rem;
 }
-.total{
+
+.total {
   width: 50%;
+  font-size: 1.5rem;
+}
+
+.student__info {
+  font-size: 1.5rem;
+}
+
+.nomenclature>li {
+  margin: 1.75rem 0;
+  list-style-type: none;
+}
+
+.nomenclature>span {
+  padding: 1rem;
+}
+
+.explication {
+  margin: 0 0.75rem;
 }
 
 #calendar {
-  margin:2rem 0;
+  margin: 2rem 0;
 }
 
 .calendar__note .alert-info {
