@@ -31,7 +31,7 @@ $(document).ready(function() {
   // console.log(student02.firstName);
 
   // display info current student
-  $('.student__name').text(student02.firstName + ' ' + student02.lastName);
+  $('.student__name').text(student01.firstName + ' ' + student01.lastName);
   $('.student__schoolYear').text(student01.schoolYear);
   $('.student__school').text(student01.school);
 
@@ -76,6 +76,7 @@ $(document).ready(function() {
   const salade = "Salade César au poulet";
   const sandwich = "Sandwich dinde et fromage sur baguette";
   const sandwich02 = "Sandwich au poulet";
+  const noOrder = 'Pas de commande';
 
 
   // Desserts
@@ -142,16 +143,15 @@ $(document).ready(function() {
     'Lait 2%'
   ];
 
-  // define non opening days (pedago, days off)
+  // define non opening days (pedago, days off, no orders)
   const pedagoDay01 = 'lundi 1 octobre';
   const dayOff01 = 'lundi 8 octobre';
-  // noOrders = [];
   // console.log(pedagoDays, dayOffs, noOrders);
 
 
 
   // DISPLAY THE CALENDAR
-  var calendarItemHtml, calendarItems, newCalendarItem, dessertsHtml, noOrders, domElement;
+  var calendarItemHtml, calendarItems, newCalendarItem, dessertsHtml, domElement;
 
   // DOM String elements
   calendarItemHtml = '<h4 class="calendar__day">%date%</h4><ul class="calendar__menu list-group"><li class="calendar__mainDish list-group-item">%mainDish%</li><li class="calendar__sideOrder list-group-item">%sideOrder%</li><li class="calendar__beverage list-group-item">%beverage%</li><li class="calendar__dessert list-group-item">%dessert%</li></ul>';
@@ -194,8 +194,12 @@ $(document).ready(function() {
     // replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
     var mainDish = mainDishes[i];
 
-    // TODO Pour Gael remplacer tous les croissants et sandwichs
-
+    // Pour Gael
+    if ($(".student__name:contains('Gael')").length > 0) {
+      replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, croquettes);
+      replaceDish('Croissant à la dinde, fromage et laitue', mainDishes, pates);
+      replaceDish('Sandwich au poulet et laitue', mainDishes, croquettes);
+    }
 
     // add background-color styles to the replaced dish
     domElement = ".calendar__mainDish:contains('%mainDish%')";
@@ -230,9 +234,6 @@ $(document).ready(function() {
       $(domElement).text(dessert);
     }
 
-    // display special indication
-    // TODO display special indication with alert alert-info classes
-
   } // end for loop calendarItems
 
   // remove the lettuce for Leo
@@ -244,6 +245,8 @@ $(document).ready(function() {
       return text.replace('laitue', 'SANS laitue');
     });
   }
+
+
 
 
   // Display the total amount to pay
