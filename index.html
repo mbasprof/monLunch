@@ -14,7 +14,7 @@
 
   <!-- Custom css -->
   <link rel="stylesheet" href="style/main.css">
-<!--  test si Lunch/monLunch -->
+  <!--  test si Lunch/monLunch -->
 
 </head>
 
@@ -23,9 +23,14 @@
     <h1>Menu <span class="heading__month"></span> <span class="heading__year"></span></h1>
     <div class='student'>
       <h3 class="student__school"></h3>
-      <h3><span class="student__name"></span>, <span class="student__schoolYear"></span></h3>
+      <p class='student__info'><span class="student__name"></span>, <span class="student__schoolYear"></span></p>
     </div>
-    <h4 class="total alert alert-success">Total à payer : <span class='amount__topay'></span></h4>
+    <p class="total alert alert-success">Total à payer : <span class='amount__topay'></span></p>
+    <ul class="nomenclature">
+      <li><span class="alert alert-info">Fond bleu :</span><span class="explication">Plat du jour remplacé</span></li>
+      <li><span class="alert alert-warning">Fond jaune :</span><span class="explication">Plat du jour qui contient des modifications</span></li>
+    </ul>
+
   </header>
   <main>
     <!-- <section id="links">
@@ -34,16 +39,18 @@
     <section id="calendar">
       <div class="container-fluid" id="menus">
         <div class="row">
-      <!-- <select name="desserts" id="desserts">
+          <!-- <select name="desserts" id="desserts">
         <option value="-1">Sélectionnez un dessert</option>
       </select> -->
-        </div> <!-- row -->
-      </div> <!-- container -->
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
 
 
     </section>
-<div id="demo"></div>
-<div id="demo2"></div>
+    <div id="demo"></div>
+    <div id="demo2"></div>
 
 
   </main>
