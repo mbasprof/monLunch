@@ -31,7 +31,7 @@ $(document).ready(function() {
   // console.log(student02.firstName);
 
   // display info current student
-  $('.student__name').text(student01.firstName + ' ' + student01.lastName);
+  $('.student__name').text(student02.firstName + ' ' + student02.lastName);
   $('.student__schoolYear').text(student01.schoolYear);
   $('.student__school').text(student01.school);
 
@@ -187,19 +187,16 @@ $(document).ready(function() {
     replaceDish('Macaroni aux fromages gratiné', mainDishes, croquettes);
     replaceDish('Macaroni sauce à la viande avec fromage', mainDishes, pates);
 
-    // Pour Leo
+    // Special modifications according to each student
     if ($(".student__name:contains('Leo')").length > 0) {
       replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
-    }
-    // replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, sandwich02);
-    var mainDish = mainDishes[i];
-
-    // Pour Gael
-    if ($(".student__name:contains('Gael')").length > 0) {
+    } else if ($(".student__name:contains('Gael')").length > 0) {
       replaceDish('Sandwich aux oeufs ou aux poulet', mainDishes, croquettes);
       replaceDish('Croissant à la dinde, fromage et laitue', mainDishes, pates);
       replaceDish('Sandwich au poulet et laitue', mainDishes, croquettes);
     }
+
+    var mainDish = mainDishes[i];
 
     // add background-color styles to the replaced dish
     domElement = ".calendar__mainDish:contains('%mainDish%')";
